@@ -21,6 +21,7 @@ public class Enemy : Character
     public float AttackRange => attackRange;
 
     private Transform player;
+    private Rigidbody2D rb;
 
     // this is the whole trick - enemy just holds "whatever state I'm in right now"
     // and asks it to Tick() every frame, without caring what's actually inside
@@ -32,6 +33,7 @@ public class Enemy : Character
         currentTarget = pointB; // start by walking toward point B
         player = GameObject.FindGameObjectWithTag("Player").transform;
         currentState = new PatrolState(); // every enemy starts out patrolling
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -47,9 +49,10 @@ public class Enemy : Character
 
     // enemy's version of Move looks different from Player's -
     // instead of reading input, it's told where to go by whichever state is active
+    // now uses physics (like Player does) so it actually respects wall colliders instead of phasing through
     public override void Move(Vector2 direction)
     {
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
+        rb.linearVelocity = direction.normalized * moveSpeed;
     }
 
     // --- helpers the states call, so the states don't need to touch Enemy's private fields directly ---
