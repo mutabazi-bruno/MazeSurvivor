@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // base class for anything that moves and can take damage (player + enemies)
@@ -13,6 +14,10 @@ public class Character : MonoBehaviour
     public int CurrentHealth => currentHealth;
     public bool IsDead { get; protected set; }
 
+    // Observer pattern - Character just announces death, doesn't know or care who's listening
+    // (GameManager will subscribe to this without Character ever needing a reference to it)
+    public event Action<Character> OnDeath;
+
     protected virtual void Awake()
     {
         currentHealth = maxHealth;
@@ -24,6 +29,7 @@ public class Character : MonoBehaviour
         if (IsDead) return;
 
         currentHealth -= amount;
+        Debug.Log($"{gameObject.name} took {amount} damage, health now {currentHealth}"); // TEMPORARY - remove once you have a health UI
 
         if (currentHealth <= 0)
         {
@@ -38,6 +44,7 @@ public class Character : MonoBehaviour
     {
         IsDead = true;
         Debug.Log($"{gameObject.name} died");
+        OnDeath?.Invoke(this); // announce death - anyone subscribed will hear about it
     }
 
     // left empty on purpose - player and enemy move very differently

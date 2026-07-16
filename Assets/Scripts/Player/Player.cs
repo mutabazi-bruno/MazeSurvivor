@@ -29,8 +29,6 @@ public class Player : Character
     // player-only behavior, doesn't exist on the base Character
     protected override void Die()
     {
-        base.Die(); // still marks IsDead, logs the message etc
-        Debug.Log("game over - player died");
-        // later: GameManager will hear about this through an event, not this direct call
+        base.Die(); // still marks IsDead, logs, and fires OnDeath - GameManager hears about it through that event, not a direct call
     }
 }
