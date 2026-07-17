@@ -9,14 +9,14 @@ public class Player : Character
 
     [Header("Shooting")]
     [SerializeField] private int shootDamage = 20;
-    [SerializeField] private float shootRange = 10f;
-    [SerializeField] private LayerMask enemyLayer; // set this to whatever layer your enemies are on
-    [SerializeField] private LayerMask wallLayer; // same wall layer Enemy uses for line-of-sight checks
+    [SerializeField] private GameObject bulletPrefab;
+    private Collider2D myCollider;
 
     protected override void Awake()
     {
         base.Awake(); // still runs Character's Awake (sets currentHealth) before adding our own stuff
         rb = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -41,27 +41,25 @@ public class Player : Character
         if (direction.sqrMagnitude > 0.01f)
         {
             facingDirection = direction.normalized;
+            RotateTowardFacing();
         }
     }
 
-    // fires an instant raycast in whichever direction the player is facing -
-    // reuses the exact same TakeDamage() every Character already has, no new damage system needed
+    // points the sprite toward whichever direction you're currently moving
+    private void RotateTowardFacing()
+    {
+        float angle = Mathf.Atan2(facingDirection.y, facingDirection.x) * Mathf.Rad2Deg;
+        // the "-90" assumes your sprite's default artwork faces UP - if it looks sideways/wrong,
+        // try removing the -90, or try -180 / +90 instead, depending on which way your sprite art faces by default
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
+    }
+
+    // spawns a real bullet that flies off in the direction you're facing
     private void Shoot()
     {
-        // combine both layers into one mask, so the raycast can now actually hit walls too,
-        // not just enemies - that's what makes a wall able to block the shot
-        LayerMask combinedMask = enemyLayer | wallLayer;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, facingDirection, shootRange, combinedMask);
-
-        if (hit.collider == null) return;
-
-        // whatever we hit FIRST matters - if it's a wall, the shot stops there and never reaches the enemy
-        Character target = hit.collider.GetComponent<Character>();
-        if (target != null)
-        {
-            target.TakeDamage(shootDamage);
-        }
-        // if target is null, we hit a wall instead of a character - shot is simply blocked, nothing happens
+        GameObject bulletObject = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        Bullet bullet = bulletObject.GetComponent<Bullet>();
+        bullet.Init(facingDirection, shootDamage, myCollider);
     }
 
     // player-only behavior, doesn't exist on the base Character

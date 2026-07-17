@@ -161,4 +161,12 @@ public class Enemy : Character
         // if the ray hit a wall before reaching the player, hit.collider won't be null - vision is blocked
         return hit.collider == null;
     }
+
+    // enemy-specific death behavior - disappears from the scene entirely
+    // (Player overrides this differently - it stays visible for the game over screen instead)
+    protected override void Die()
+    {
+        base.Die(); // still marks IsDead, logs, fires OnDeath
+        Destroy(gameObject);
+    }
 }

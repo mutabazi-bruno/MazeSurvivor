@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // classic Singleton pattern - guarantees only one GameManager ever exists,
 // and gives every other script easy access to it via GameManager.Instance
@@ -7,6 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public bool IsGameOver { get; private set; }
+
+    [Header("UI Panels - assign in Inspector")]
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject winPanel;
 
     private void Awake()
     {
@@ -24,7 +29,7 @@ public class GameManager : MonoBehaviour
     {
         // find the player and subscribe to their death announcement -
         // Player never needed to know GameManager exists, this is GameManager reaching out instead
-        Player player = FindAnyObjectByType<Player>();
+        Player player = FindFirstObjectByType<Player>();
         if (player != null)
         {
             player.OnDeath += HandlePlayerDeath;
@@ -43,7 +48,9 @@ public class GameManager : MonoBehaviour
 
         IsGameOver = true;
         Debug.Log("GAME OVER - you died");
-        // later: show a game over UI screen here
+
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+        Time.timeScale = 0f; // freezes all physics/movement - a clean way to "pause" without extra logic
     }
 
     public void PlayerWon()
@@ -52,6 +59,16 @@ public class GameManager : MonoBehaviour
 
         IsGameOver = true;
         Debug.Log("YOU WIN - reached the exit");
-        // later: show a victory UI screen here
+
+        if (winPanel != null) winPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    // reloading the whole scene is the simplest possible "reset everything" -
+    // maze regenerates fresh, enemies respawn, health resets, all for free
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // un-freeze before reloading, otherwise the new scene loads still paused
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
