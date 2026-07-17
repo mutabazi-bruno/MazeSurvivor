@@ -1,13 +1,11 @@
 using UnityEngine;
 
-// same patrol logic that used to live in Enemy.Update() - just moved here
-// so it can be swapped out for ChaseState/AttackState later
+// patrol now walks a real pathfinding route between two randomly chosen maze cells
 public class PatrolState : IEnemyState
 {
     public void Tick(Enemy enemy)
     {
-        enemy.MoveTowardCurrentPatrolPoint();
-        enemy.CheckPatrolPointSwitch();
+        enemy.MoveTowardPatrolTarget();
 
         // this is the actual state transition - if we spot the player, hand control to ChaseState
         if (enemy.CanSeePlayer())

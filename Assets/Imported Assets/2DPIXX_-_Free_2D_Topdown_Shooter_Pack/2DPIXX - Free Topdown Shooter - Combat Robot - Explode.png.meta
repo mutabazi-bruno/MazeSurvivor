@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: 8429956fe23ac464a950f62b79971991
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4241358448177795501
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_0
+  - first:
+      213: -8130512146774001312
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_1
+  - first:
+      213: -9026524738925437569
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_2
+  - first:
+      213: -6250024604718732593
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_3
+  - first:
+      213: -6354463392240614213
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_4
+  - first:
+      213: -4416543934871514647
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_5
+  - first:
+      213: 6747598238459069572
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_6
+  - first:
+      213: 2287525000059279465
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_7
+  - first:
+      213: -1417884726336679030
+    second: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_8
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 109
+        width: 728
+        height: 532
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35ea24b86faa325c0800000000000000
+      internalID: -4241358448177795501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_1
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 109
+        width: 728
+        height: 532
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0697981a74e9a2f80800000000000000
+      internalID: -8130512146774001312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_2
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 109
+        width: 728
+        height: 532
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7dd21413975bb280800000000000000
+      internalID: -9026524738925437569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_3
+      rect:
+        serializedVersion: 2
+        x: 2261
+        y: 109
+        width: 728
+        height: 532
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcae94e6cb37349a0800000000000000
+      internalID: -6250024604718732593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_4
+      rect:
+        serializedVersion: 2
+        x: 3011
+        y: 29
+        width: 728
+        height: 707
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb4464f463960d7a0800000000000000
+      internalID: -6354463392240614213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_5
+      rect:
+        serializedVersion: 2
+        x: 3761
+        y: 109
+        width: 728
+        height: 634
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e1d31be0b845b2c0800000000000000
+      internalID: -4416543934871514647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_6
+      rect:
+        serializedVersion: 2
+        x: 3949
+        y: 18
+        width: 74
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 484876af8d844ad50800000000000000
+      internalID: 6747598238459069572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_7
+      rect:
+        serializedVersion: 2
+        x: 4107
+        y: 22
+        width: 74
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 968db532edbeebf10800000000000000
+      internalID: 2287525000059279465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2DPIXX - Free Topdown Shooter - Combat Robot - Explode_8
+      rect:
+        serializedVersion: 2
+        x: 4511
+        y: 109
+        width: 728
+        height: 532
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a83104a8a59a25ce0800000000000000
+      internalID: -1417884726336679030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_0: -4241358448177795501
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_1: -8130512146774001312
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_2: -9026524738925437569
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_3: -6250024604718732593
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_4: -6354463392240614213
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_5: -4416543934871514647
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_6: 6747598238459069572
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_7: 2287525000059279465
+      2DPIXX - Free Topdown Shooter - Combat Robot - Explode_8: -1417884726336679030
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

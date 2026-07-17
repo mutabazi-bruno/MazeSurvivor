@@ -1,20 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 // enemy inherits health/damage from Character, same as Player does
-// behavior itself now lives in separate state classes (Patrol/Chase/Attack) - this is the State pattern
+// behavior itself lives in separate state classes (Patrol/Chase/Attack) - this is the State pattern
 public class Enemy : Character
 {
-    // drag two empty GameObjects in here in the Inspector - the enemy will walk back and forth between them
-    [SerializeField] private Transform pointA;
-    [SerializeField] private Transform pointB;
-    private Transform currentTarget;
-
     [Header("Detection")]
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private LayerMask wallLayer; // set this to whatever layer your maze walls are on
 
     [Header("Combat")]
-    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackRange = 2f;
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float fireRate = 1f; // seconds between hits
     private float lastAttackTime;
@@ -27,13 +23,35 @@ public class Enemy : Character
     // and asks it to Tick() every frame, without caring what's actually inside
     private IEnemyState currentState;
 
+    // --- patrol points are now picked automatically as random maze cells, ---
+    // --- not manually placed Transforms - guaranteed reachable since it's a perfect maze ---
+    private Vector2Int patrolPointA;
+    private Vector2Int patrolPointB;
+    private Vector2Int currentPatrolTarget;
+
+    // --- shared pathfinding state, used by BOTH patrol and chase now ---
+    [Header("Pathfinding")]
+    [SerializeField] private float pathRecalculateInterval = 0.5f; // don't recompute every single frame, that's wasteful
+    private List<Vector2Int> currentPath;
+    private int pathIndex;
+    private float lastPathTime;
+    private Vector2Int currentPathTargetCell;
+    public int CurrentPathCount => currentPath?.Count ?? -1;
+
     protected override void Awake()
     {
         base.Awake(); // still sets up currentHealth from Character
-        currentTarget = pointB; // start by walking toward point B
         player = GameObject.FindGameObjectWithTag("Player").transform;
         currentState = new PatrolState(); // every enemy starts out patrolling
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        // done in Start (not Awake) so we're guaranteed MazeGenerator has already set its Instance
+        patrolPointA = MazeGenerator.Instance.GetRandomCell();
+        patrolPointB = MazeGenerator.Instance.GetRandomCell();
+        currentPatrolTarget = patrolPointB;
     }
 
     private void Update()
@@ -49,33 +67,67 @@ public class Enemy : Character
 
     // enemy's version of Move looks different from Player's -
     // instead of reading input, it's told where to go by whichever state is active
-    // now uses physics (like Player does) so it actually respects wall colliders instead of phasing through
+    // uses physics (like Player does) so it actually respects wall colliders
     public override void Move(Vector2 direction)
     {
         rb.linearVelocity = direction.normalized * moveSpeed;
     }
 
-    // --- helpers the states call, so the states don't need to touch Enemy's private fields directly ---
+    // --- helpers the states call ---
 
-    public void MoveTowardCurrentPatrolPoint()
+    // patrol now walks a REAL path to a random cell, and once there, swaps to the other patrol cell
+    public void MoveTowardPatrolTarget()
     {
-        Vector2 direction = (currentTarget.position - transform.position).normalized;
-        Move(direction);
-    }
+        FollowPathTo(currentPatrolTarget);
 
-    public void CheckPatrolPointSwitch()
-    {
-        float distance = Vector2.Distance(transform.position, currentTarget.position);
-        if (distance < 0.1f)
+        Vector2Int myCell = MazeGenerator.Instance.WorldToCell(transform.position);
+        if (myCell == currentPatrolTarget)
         {
-            currentTarget = currentTarget == pointA ? pointB : pointA;
+            currentPatrolTarget = currentPatrolTarget == patrolPointA ? patrolPointB : patrolPointA;
         }
     }
 
+    // chase walks a real path straight to whatever cell the player is currently in
     public void MoveTowardPlayer()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2Int playerCell = MazeGenerator.Instance.WorldToCell(player.position);
+        FollowPathTo(playerCell);
+    }
+
+    // shared logic - both patrol and chase funnel through here now, so there's only one
+    // path-following implementation to maintain instead of two separate ones
+    private void FollowPathTo(Vector2Int targetCell)
+    {
+        bool needsNewPath = currentPath == null
+            || targetCell != currentPathTargetCell
+            || Time.time - lastPathTime > pathRecalculateInterval;
+
+        if (needsNewPath)
+        {
+            currentPathTargetCell = targetCell;
+            RecalculatePath(targetCell);
+        }
+
+        if (currentPath == null || currentPath.Count == 0) return;
+
+        Vector3 targetWorldPos = MazeGenerator.Instance.CellToWorld(currentPath[pathIndex]);
+        Vector2 direction = (targetWorldPos - transform.position).normalized;
         Move(direction);
+
+        // close enough to this waypoint? move on to the next one
+        // (slightly generous threshold - too tight and a wall corner can pin the enemy in place)
+        if (Vector2.Distance(transform.position, targetWorldPos) < 0.35f && pathIndex < currentPath.Count - 1)
+        {
+            pathIndex++;
+        }
+    }
+
+    private void RecalculatePath(Vector2Int targetCell)
+    {
+        lastPathTime = Time.time;
+        Vector2Int myCell = MazeGenerator.Instance.WorldToCell(transform.position);
+        currentPath = MazePathfinder.FindPath(myCell, targetCell, MazeGenerator.Instance);
+        pathIndex = 0;
     }
 
     public float DistanceToPlayer()

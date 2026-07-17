@@ -11,6 +11,7 @@ public class Player : Character
     [SerializeField] private int shootDamage = 20;
     [SerializeField] private float shootRange = 10f;
     [SerializeField] private LayerMask enemyLayer; // set this to whatever layer your enemies are on
+    [SerializeField] private LayerMask wallLayer; // same wall layer Enemy uses for line-of-sight checks
 
     protected override void Awake()
     {
@@ -47,16 +48,20 @@ public class Player : Character
     // reuses the exact same TakeDamage() every Character already has, no new damage system needed
     private void Shoot()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, facingDirection, shootRange, enemyLayer);
+        // combine both layers into one mask, so the raycast can now actually hit walls too,
+        // not just enemies - that's what makes a wall able to block the shot
+        LayerMask combinedMask = enemyLayer | wallLayer;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, facingDirection, shootRange, combinedMask);
 
-        if (hit.collider != null)
+        if (hit.collider == null) return;
+
+        // whatever we hit FIRST matters - if it's a wall, the shot stops there and never reaches the enemy
+        Character target = hit.collider.GetComponent<Character>();
+        if (target != null)
         {
-            Character target = hit.collider.GetComponent<Character>();
-            if (target != null)
-            {
-                target.TakeDamage(shootDamage);
-            }
+            target.TakeDamage(shootDamage);
         }
+        // if target is null, we hit a wall instead of a character - shot is simply blocked, nothing happens
     }
 
     // player-only behavior, doesn't exist on the base Character

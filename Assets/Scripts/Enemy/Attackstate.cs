@@ -7,8 +7,8 @@ public class AttackState : IEnemyState
     {
         enemy.AttackPlayer();
 
-        // if the player somehow gets away, go back to chasing
-        if (enemy.DistanceToPlayer() > enemy.AttackRange)
+        // if the player gets away, OR a wall ends up between you, go back to chasing
+        if (enemy.DistanceToPlayer() > enemy.AttackRange || !enemy.CanSeePlayer())
         {
             enemy.SetState(new ChaseState());
         }
