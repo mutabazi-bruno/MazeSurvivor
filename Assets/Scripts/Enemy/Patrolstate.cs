@@ -7,7 +7,8 @@ public class PatrolState : IEnemyState
     {
         enemy.MoveTowardPatrolTarget();
 
-        // this is the actual state transition - if we spot the player, hand control to ChaseState
+        // this is the actual state transition  if we spot the player, hand control to ChaseState
+        
         if (enemy.CanSeePlayer())
         {
             enemy.SetState(new ChaseState());

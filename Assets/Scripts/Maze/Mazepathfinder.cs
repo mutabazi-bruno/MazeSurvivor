@@ -1,21 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// finds the shortest path between two cells using BFS (Breadth-First Search):
-// expand outward one "ring" of cells at a time from the start, stop the instant
-// we reach the target, then trace backward through how we got there.
-// guaranteed shortest path here because every move costs the same (one cell to an adjacent cell).
 public static class MazePathfinder
 {
     public static List<Vector2Int> FindPath(Vector2Int start, Vector2Int target, MazeGenerator maze)
     {
         // tracks which cells we've already checked, so we never process the same cell twice
+
         HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
 
-        // the "ripple" - cells waiting to be expanded, in the order they were discovered
+        // the "ripple" cells waiting to be expanded, in the order they were discovered
+
         Queue<Vector2Int> frontier = new Queue<Vector2Int>();
 
-        // remembers "I reached this cell FROM this other cell" - how we trace the path backward at the end
         Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();
 
         frontier.Enqueue(start);
@@ -37,7 +34,7 @@ public static class MazePathfinder
                 Vector2Int neighbor = current + direction;
 
                 if (visited.Contains(neighbor)) continue;
-                if (!maze.CanMoveBetween(current, neighbor)) continue; // wall blocks this direction
+                if (!maze.CanMoveBetween(current, neighbor)) continue; 
 
                 visited.Add(neighbor);
                 cameFrom[neighbor] = current;
@@ -45,12 +42,9 @@ public static class MazePathfinder
             }
         }
 
-        return null; // no path exists (shouldn't happen in our maze, since every cell is reachable)
+        return null; 
     }
 
-    // reuses the same BFS spread, but instead of stopping at a target, it explores the WHOLE maze
-    // from the start point and remembers whichever cell was hardest to reach (took the most steps) -
-    // perfect for picking an exit location that's genuinely far from the spawn point
     public static Vector2Int FindFarthestCell(Vector2Int start, MazeGenerator maze)
     {
         HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
@@ -65,7 +59,7 @@ public static class MazePathfinder
         while (frontier.Count > 0)
         {
             Vector2Int current = frontier.Dequeue();
-            farthestCell = current; // BFS visits in increasing distance order, so the last one dequeued is farthest
+            farthestCell = current; 
 
             foreach (Vector2Int direction in directions)
             {
@@ -81,8 +75,6 @@ public static class MazePathfinder
         return farthestCell;
     }
 
-    // walks backward from target to start using the cameFrom trail, then reverses it
-    // so the returned list reads start -> ... -> target
     private static List<Vector2Int> ReconstructPath(Dictionary<Vector2Int, Vector2Int> cameFrom, Vector2Int start, Vector2Int target)
     {
         List<Vector2Int> path = new List<Vector2Int>();

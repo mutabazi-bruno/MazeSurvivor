@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// classic Singleton pattern - guarantees only one GameManager ever exists,
-// and gives every other script easy access to it via GameManager.Instance
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -15,7 +13,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // if one already exists, destroy this duplicate - enforces "only one ever"
+        // if one already exists, destroy this duplicate 
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -29,7 +28,8 @@ public class GameManager : MonoBehaviour
     {
         // find the player and subscribe to their death announcement -
         // Player never needed to know GameManager exists, this is GameManager reaching out instead
-        Player player = FindFirstObjectByType<Player>();
+
+        Player player = FindAnyObjectByType<Player>();
         if (player != null)
         {
             player.OnDeath += HandlePlayerDeath;
@@ -44,13 +44,13 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
-        if (IsGameOver) return; // don't trigger this twice
+        if (IsGameOver) return; 
 
         IsGameOver = true;
         Debug.Log("GAME OVER - you died");
 
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
-        Time.timeScale = 0f; // freezes all physics/movement - a clean way to "pause" without extra logic
+        Time.timeScale = 0f; 
     }
 
     public void PlayerWon()
@@ -64,8 +64,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    // reloading the whole scene is the simplest possible "reset everything" -
+    // reloading the whole scene is the simplest possible "reset everything" 
     // maze regenerates fresh, enemies respawn, health resets, all for free
+    
     public void RestartGame()
     {
         Time.timeScale = 1f; // un-freeze before reloading, otherwise the new scene loads still paused
