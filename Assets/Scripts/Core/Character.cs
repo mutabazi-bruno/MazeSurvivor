@@ -47,6 +47,6 @@ public class Character : MonoBehaviour
 
     public virtual void Move(Vector2 direction)
     {
-        // overridden by subclasses
+       
     }
 }
